@@ -204,3 +204,68 @@ Use FAISS in stead of ChromaDB here:
 - Better performance for similarity search
 - Simpler setup
 - Works well with large datasets
+
+# LangChain Memory
+
+LangChain’s memory classes enable applications to hold conversation history and manage it effectively, such as by saving full conversation logs, summarizing key points, or managing memory windows to reduce the size of stored interactions. This is essential for context-based AI tasks.
+
+## Memory Types:
+
+1. **ConversationBufferMemory**
+2. **ConversationBufferWindowMemory**
+3. **ConversationTokenBufferMemory**
+4. **ConversationSummaryMemory**
+
+### **ConversationBufferMemory**
+
+- Simplest form of memory
+- Stores all conversations in a simple buffer
+- Remembers entire conversation history
+
+### **ConversationBufferWindowMemory**
+
+- Keeps a limited window of most recent conversations
+- Helps prevent context length from growing too large
+- Good for when you want to limit memory to recent exchanges
+
+  ### **ConversationTokenBufferMemory**
+
+- Similar to BufferMemory but tracks token count
+- Ensures context stays within model's token limits
+- Useful for managing long conversations with token-limited models
+
+  ### **ConversationSummaryMemory**
+
+- Maintains a running summary of the conversation
+- Uses an LLM to compress older context into summaries
+- Ideal for very long conversations while retaining key information
+
+# **Chains in LangChain**
+
+- Chains are sequences of actions, where the output of one step can be used as the input for another.
+- Can be used as building blocks for other chains
+
+### **LLMChain**
+
+- This is the fundamental chain in LangChain for working with language models (LLMs).
+- Combines a prompt template with an LLM to create a reusable chain
+- Used as a building block within other chains.
+
+### SimpleSequentialChain
+
+- A straightforward version of sequential chains
+- Used when each chain has a single input and single output
+- Output of one chain becomes the only input for the next chain
+
+## SequentialChain
+
+- More flexible than SimpleSequentialChain
+- Supports multiple inputs and outputs for each chain
+- Allows you to specify which outputs to use as inputs for subsequent chains
+
+### **Router Chain**
+
+- A **Router Chain** directs inputs to different chains based on certain conditions or criteria.
+- Build complex workflows by combining simple chains
+- Create modular components that can be combined in different ways
+- Easier to debug and modify individual components
